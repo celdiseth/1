@@ -52,15 +52,18 @@ def main():
 def second():
     pg.init()
     s = pg.image.load(os.path.join(data_dir, "arraydemo.bmp"))
-    pg.display.set_mode((255, 255))
-    surface = pg.Surface((255, 255))
+
     #show(s)
 
 
     a_tile = pg.image.load(os.path.join(data_dir, "arraydemo.bmp"))
-    tile_rect = a_tile.get_rect
-    x_stride = a_tile.get_width
-    y_stride = a_tile.get_height
+    tile_rect = a_tile.get_rect()
+    x_stride = a_tile.get_width()
+    y_stride = a_tile.get_height()
+    display_rect = (x_stride * 2, y_stride*2)
+    pg.display.set_mode(display_rect)
+    surface = pg.Surface(display_rect)
+
     a_tile_row = [1,0]
     another_tile_row = [0,1]
     all_tiles = []   #representation of the tiles. each unique sprite gets a number assigned. 
@@ -75,17 +78,20 @@ def second():
         
         for tile in row:
             if tile == 1:
-                #sx = this_col * x_stride
-                #sy = this_row * y_stride
-                #screen.blit(a_tile, tile_rect)
+                sx = this_col * x_stride
+                sy = this_row * y_stride
+                screen.blit(a_tile, (sx,sy))
                 sx=+1
             this_col =+ 1
         
         this_col = 0
         this_row =+ 1
             
-    screen.blit(a_tile, (0,0))
-    screen.blit(a_tile,(77,77))
+    #screen.blit(a_tile, (0,0))
+    #screen.blit(a_tile,(77,77))
+    print(x_stride)
+    print(y_stride)
+    pg.display.flip()
 
     while True:
         event = pg.event.wait()
