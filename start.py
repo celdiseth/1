@@ -201,12 +201,50 @@ def third():
 def fourth():
     pg.init()
     
-    display_rect = (622, 622)
+    display_rect = (5*72, 5*72)
     pg.display.set_mode(display_rect) 
-    
-    pg.display.flip()
+
 
     build_sprite_list()
+    a_tile_row = [-1,59,-1,-1,-1]
+    another_tile_row = [0,38,-1,71,15]
+    yet_another_row = [9,10,11,12,13]
+    all_tiles = []   #representation of the tiles. each unique sprite gets a number assigned. 
+    all_tiles.append(a_tile_row)
+    all_tiles.append(another_tile_row)
+    all_tiles.append(yet_another_row)
+    print(all_tiles)
+
+    x_stride = sprite_list[0].get_width()
+    y_stride = sprite_list[0].get_height()
+    this_row = 0
+    this_col = 0
+    sx,sy = 0,0
+
+    #display_rect = (all_tiles.count*x_stride, all_tiles.count*y_stride)
+    #pg.display.set_mode(display_rect) 
+    window = pg.display.get_surface()
+    
+    
+
+    for row in all_tiles:
+        
+        for tile in row:
+            if tile != -1:
+                sx = this_col * x_stride
+                sy = this_row * y_stride
+                window.blit(sprite_list[tile], (sx,sy))
+                sx=+1
+            this_col =+ 1
+            print("sx = ", sx)
+            print("sy = ", sy)
+            print("tile = ", tile)
+            print("row = ", row)
+            print("xstride = ", x_stride)
+            print("ystride = ", y_stride)
+        this_col = 0
+        this_row =+ 1
+    pg.display.flip()
     while True:
         event = pg.event.wait()
         if event.type == pg.QUIT:
