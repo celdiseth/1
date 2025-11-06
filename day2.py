@@ -63,6 +63,15 @@ def gen_random_tiles():
     
     return list_of_tile_columns            
 
+#delete the first column list, append one random column list.
+def remove_and_paint_one_column(data):
+    data.pop(0)
+    col = []
+    for n in range(NUMBER_TILES_UD):
+        col.append(random.randint(0, 75))
+    data.append(col)
+    return data
+
 #draw to current display
 def draw_tile_sprites(sl):
     pg.display.set_mode((1200,900))
@@ -93,7 +102,9 @@ def day2_r1():
             pg.quit()
             raise SystemExit
         if event.type in [pg.MOUSEBUTTONDOWN, pg.KEYDOWN]:
-            break
+            remove_and_paint_one_column(all_tiles)
+            draw_tile_sprites(all_tiles)
+
     
 
 
